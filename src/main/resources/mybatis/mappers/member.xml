@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.boot.dao.MemberDAO">
+   <!-- 아이디 중복검사 -->
+   <select id="isExistUid" parameterType="MemberVO" resultType="int" >
+      SELECT count(*) FROM MEMBER
+      WHERE USERID = #{userid}
+   </select>
+   
+   <!-- 로그인 -->
+   <select id="loginMember" resultType="MemberVO">
+      SELECT * FROM MEMBER
+      WHERE userid = #{userid}
+         AND
+            PWD = #{pwd}
+   </select>
+   
+   <insert id="join" parameterType="MemberVO">
+   	insert into MEMBER(
+   					   USERID
+   					  ,NAME
+   					  ,PWD
+   					  ,PHONE
+   					) values(
+   					  #{userid}
+   					 ,#{name}
+   					 ,#{pwd}
+   					 ,#{phone}
+   					)
+   </insert>
+   
+   <update id="update" parameterType="MemberVO">
+  	 update member set 
+  	 	name=#{name}, 
+  	 	pwd=#{pwd}, 
+  	 	phone=#{phone} 
+  	 where userid=#{userid} 
+   </update>
+  
+  <delete id="delete" parameterType="MemberVO">
+  	delete from member where userid = #{userid} 
+  </delete>
+   <!-- 비밀번호 찾기 -->
+   <!-- <select id="memberFindPwd" resultType="MemberVO" >
+      SELECT * FROM MEMBER
+      WHERE id = #{id}
+         AND
+             uname = #{uname}
+   </select> -->
+   
+</mapper>

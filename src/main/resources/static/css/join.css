@@ -1,0 +1,91 @@
+/* 추가된 CSS 스타일 */
+
+#memberFormTag{
+ max-width: 900px;
+ margin: 0 auto;
+ background-color: #fff;
+ padding: 20px;
+ border-radius: 5px;
+ box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#MemberJoinfieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+legend {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#MemberJoinTable {
+  width: 1000px;
+}
+
+#MemberTable {
+  width: 800px;
+}
+
+.MemberTh {
+  text-align: left;
+  padding: 10px 0;
+}
+
+.MemberTd {
+  padding: 10px 0;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="tel"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  background-color: gray;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+#withdrawl{
+  float: right;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  background-color: #f05650;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover {
+  background-color: gray;
+}
+
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus {
+  outline: none;
+}
+
+input[type="submit"]:last-child {
+  margin-right: 0;
+}

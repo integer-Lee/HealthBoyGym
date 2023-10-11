@@ -1,0 +1,42 @@
+<style>
+  /* 댓글 목록 컨테이너 스타일 */
+  #commentList {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 20px;
+  }
+
+  /* 각 댓글 아이템 스타일 */
+  .commentList {
+    border: 1px solid #eee;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #f9f9f9;
+  }
+
+  /* 작성자 스타일 */
+  .commentList p:nth-child(2) {
+    font-weight: bold;
+  }
+
+  /* 작성일 스타일 */
+  .commentList p:nth-child(3) {
+    font-style: italic;
+    color: #777;
+  }
+
+  /* 내용 스타일 */
+  .commentList p:nth-child(4) {
+    margin-top: 10px;
+  }
+
+  /* 수정, 삭제 버튼 스타일 */
+  .commentList button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: gray;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+</style>

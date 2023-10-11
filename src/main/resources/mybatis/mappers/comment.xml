@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.project.boot.dao.CommentDAO">
+  
+   	<!-- boardId에 존재하는 모든 댓글 조회 -->
+   	<select id="selectAllCommentList" parameterType="CommentVO" resultType="CommentVO">
+		SELECT COMMENTNO,
+			   COMMENTS,
+			   BOARDID,
+			   USERID,
+			   REGDATE
+		FROM COMMENTS
+		WHERE BOARDID = #{boardId}
+   	</select>
+   	
+   	<!-- 댓글 1개에 대한 data 조회 -->
+ 	<select id="selectOneComment" parameterType="CommentVO" resultType="CommentVO">
+ 	
+		SELECT COMMENTNO,
+			   COMMENTS,
+			   BOARDID,
+			   USERID,
+			   REGDATE
+		FROM COMMENTS
+		WHERE COMMENTNO = #{commentNo}
+   	</select>
+   	
+   	<!-- 댓글 삽입 -->
+   <insert id = "insertComment" parameterType="CommentVO">
+	   <selectKey keyProperty="commentNo" resultType="int" order="BEFORE">
+	        select  SEQ_COMMENTS.nextval  as commentNo from dual
+	    </selectKey> 
+	   insert
+	    INTO COMMENTS (
+	         COMMENTNO,
+	         COMMENTS,
+	         USERID,
+	         BOARDID
+	    ) values (  
+		             #{commentNo} 
+		             ,#{comments} 
+		             ,#{userId}
+		             ,#{boardId}  
+		             ) 
+    </insert>
+</mapper>

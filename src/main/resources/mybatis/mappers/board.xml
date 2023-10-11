@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.boot.dao.BoardDAO">
+   <!-- 게시판글 총 개수 반환 -->
+   <select id="getTotalCount" parameterType="BoardVO" resultType="int" >
+      select count(*) from board
+   </select>
+
+	<select id = "getBoardList" parameterType="BoardVO" resultType="BoardVO">
+
+	    SELECT
+	      C.*
+	    FROM
+	      (
+	        SELECT
+	          ROWNUM NROW,
+	          B.*
+	        FROM
+	          (
+	            SELECT
+	              LEVEL, A.*
+	            FROM
+	              BOARD A 
+	            WHERE DELETE_YN = 'N'
+	            
+	            <if test="searchTitle != '' and searchTitle != null">
+					and lower(title) like lower(concat(concat('%',#{searchTitle}),'%'))
+	
+				</if>
+				START WITH PID =0
+				CONNECT BY PRIOR BOARDID = PID
+				order SIBLINGS by A.BOARDID DESC	        
+	          ) B
+	<![CDATA[	          
+	        WHERE
+	          ROWNUM <= #{endNo}
+	      ) C
+	    WHERE
+	      NROW BETWEEN #{startNo} AND #{endNo}
+	  ]]>
+	
+	</select>
+	
+	<!-- 게시글 상세보기 -->
+	<select id = "getBoard" parameterType="BoardVO" resultType="BoardVO">
+		select BOARDID, TITLE, CONTENTS, USERID, REGDATE, HIT, DELETE_YN, PID  
+		from BOARD
+		where BOARDID=#{boardId} 
+	</select>
+	 
+	 <!-- 조회수 증가 -->
+	 <update id = "hitUpdate" parameterType="BoardVO">
+		update BOARD set hit = hit + 1 where BOARDID=#{boardId}
+	 </update>
+	
+	<!-- 
+		일반 게시글 삽입 
+		마이바티스에서는 값을 INSERT하기 전에 SELECT할 수 있다.
+		KEY COLUMN: SQL에서 return하는 DB필드명
+		KEY PROPERTY: BOARDVO에서 선언되는 필드명
+		두가지는 같을 수도 다를 수 도 있다. 
+		
+		MYSQL, MARIADB, MYSQL은 자동증가ID에 관한것은 등록이 된 후 증가한다.  
+		
+		insert태그에 있는 keyProperty는 DAOImpl에서 입력인자로 전달한 VO객체의 boardId의 값이 return된다. 
+	-->
+   <insert id = "insertBoard" parameterType="BoardVO">
+       <selectKey keyProperty="boardId" resultType="int" order="BEFORE">
+       	SELECT 
+       		SEQ_BOARD.nextval boardId 
+       	FROM DUAL
+       </selectKey>
+	   insert
+	    INTO BOARD (
+	    	PID,
+	        BOARDID,
+	        TITLE,
+	        CONTENTS,
+	        USERID
+	    ) values (  
+		               0
+		              ,#{boardId}
+		              ,#{title} 
+		              ,#{contents}
+		              ,#{userId}  
+		             ) 
+    </insert>
+	
+	  <!-- 공지사항 게시글 수정 -->
+    <update id = "updateBoard" parameterType="BoardVO">
+    	update BOARD 
+    	set TITLE = #{title}
+    		,CONTENTS = #{contents}
+    	where BOARDID = #{boardId}
+    </update>
+	
+	<!-- 답글  삽입 -->
+   <insert id = "insertBoardReply" parameterType="BoardVO">
+	   <selectKey keyProperty="boardId" resultType="int" order="BEFORE">
+	       	SELECT 
+	       		SEQ_BOARD.nextval boardId 
+	       	FROM DUAL
+       </selectKey>
+	   INSERT
+	    INTO BOARD (
+	    	PID,
+	        BOARDID,
+	        TITLE,
+	        CONTENTS,
+	        USERID
+	    ) values (  
+	    			  #{pid}
+		             ,#{boardId}
+		             ,#{title} 
+		             ,#{contents}
+		             ,#{userId}  
+		             ) 
+    </insert>
+    
+     <!-- 게시글 삭제 -->
+    <delete id = "deleteBoard" parameterType="BoardVO">
+    	UPDATE BOARD 
+    	SET DELETE_YN = 'Y' 
+    	WHERE BOARDID = #{boardId}
+    </delete>
+  
+</mapper>

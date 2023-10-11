@@ -1,0 +1,366 @@
+/* main페이지에 있는 모든 태그에 css를 적용한다. */
+.container{
+  margin: 0;   /*  마진값 초기화 */
+  padding: 0;  /*  패딩값 초기화 */
+  box-sizing: border-box; 
+  
+  /*   박스 영역은 테두리(border)까지 지정
+    따라서 content의 너비는 다를 수 있다. */
+}
+
+
+
+#main{
+  margin: 0 auto; /* 화면 중앙에 배치 */
+  /* width: 1200px;   너비 지정 */
+}
+
+/* 헤더 영역 */
+header{
+  width: 100%;  /* 너비 */
+  height: 120px; /* 높이 */
+  background-color: whitesmoke;
+}
+
+/* 로고 영역 */
+#logo{
+  float: left;  /*왼쪽으로 플로팅*/
+  width: 25%; /* 너비 */
+  height: 120px; /* 높이 */
+  background-color: whitesgainsboromoke;
+}
+
+#logo h1{
+  font-family: 'Nanum Pen Script', cursive;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 650;
+  font-size: 40px;  /* 폰트 크기 */
+  color: silver;    /* 폰트 색상 */
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; /* 그림자색 */
+}
+
+/* 내비게이션 영역 */
+nav{
+  float: right;   /* 오른쪽으로 플로팅 */
+  width: 70%;   /* 너비 */
+  height: 120px;  /* 내비게이션 영역 높이 */
+  
+}
+
+#topMenu{
+  height: 100px;
+  padding-left: 0px;
+  padding-top: 25px;  /* 메뉴를 아래로 내리기 위해 */
+}
+
+#topMenu > li{
+  float: left;  /* 메뉴 항목을 왼쪽으로 플로팅 */
+  position: relative; /* 서브메뉴를 absolute로 만들기 위해 부모 요소를 relative로 지정 */
+}
+
+#topMenu > li > a{
+  display: block; /* 링크 텍스트는 블록으로 */
+  color: black;  /* 폰트 색상 */
+  font-weight: 700;/* 폰트 굵기 */ 
+  font-size: large;
+  padding: 10px 70px;
+}
+
+#topMenu > li > a:hover{
+  color: #000;
+  text-shadow: 1px 1px gray; /* 글자가 굵어지지 않도록 지정 */
+}
+
+#topMenu > li > ul{
+  display: none;   /* 처음에는 서브메뉴를 감춥니다. */
+  position: absolute; /* 서브메뉴 포지셔닝 */
+  width: 200px;
+  background-color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+#firstUl{
+  left: 20px;
+}
+
+#secondUl{
+  left: 40px;
+}
+
+#thirdUl{
+  left: 20px;
+}
+
+#topMenu > li > ul > li{
+  padding: 10px 10px 10px 30px; /* 서브메뉴 항목 지정 */
+}
+
+#topMenu > li > ul > li > a{
+  font-size: 15px;
+  padding: 8px;
+  color: #000;
+}
+
+#topMenu > li:hover > ul{
+  display: block; /* 메인 메뉴 항목 위로 오버하면 서브메뉴 표시 */
+  font-size: medium;
+  z-index: 10;   /* 슬라이드 쇼에 가리지 않게 조절 */
+}
+
+#topMenu > li > ul > li > a:hover{
+  color: #000;
+  text-shadow: 1px 1px gray; /* 글자가 굵어지지 않도록 지정 */
+}
+
+/* 이미지 슬라이드 쇼 영역 */
+#slideShow{
+  clear: both;  /* 플로팅 해제 */
+  width: 100%;  /* 너비 */
+  height: 400px;/* 높이 */
+  overflow: hidden; /* 영역 넘치면 감춤 */
+  position: relative;
+}
+
+#slides{
+  position: absolute;
+}
+
+#slides > img{
+  width: 1519.2px;  /* 너비 */
+  height: 400px;
+  float: left;  /* 가로로 배치 */
+  /* margin-left: 50px; */
+}
+
+/* 콘텐츠 영역 */
+#contents{
+  width: 100%;  /* 너비 */
+  height: 400px;/* 높이 */
+}
+
+/* 탭 메뉴 영역 */
+#tabMenu{
+  float: left; /* 왼쪽으로 플로팅 */
+  width: 60%; /* 너비 */
+  height: 100%; /* 높이 */
+}
+
+#tabMenu input[type="radio"]{
+  display: none;  /* 라디오 버튼 감춤 */
+}
+
+#tabMenu label{ /* 탭 제목 스타일 */
+  display: inline-block;  /* 탭을 가로로 배치 */
+  margin: 0 0;  /* 마진 */
+  padding: 15px 60px;
+  font-weight: 650; /* 폰트 굵기 */
+  text-align: center;
+  color: #aaa;
+  border: 1px solid transparent;  /* 테두리 스타일 */
+}
+
+#tabMenu label:hover{ /* 마우스 포인터를 올렸을 때 탭 제목 스타일 */
+  color: #222;
+  cursor: pointer;
+}
+
+#tabMenu input:checked + label{ /* 활성화된 탭 제목 스타일 */
+  color: #b00;
+  border: 1px solid #ddd;
+  background-color: #eee;
+}
+
+.tabContent { /* 탭 내용 스타일 */
+  display: none;
+  padding: 20px 0 0;
+  border-top: 1px solid #ddd;
+}
+
+.tabContent h2{
+  display: none;
+}
+
+#notice ul{
+  list-style: disc;
+  margin-left: 30px;
+}
+#notice ul li{
+  font-size: 20px;
+  line-height: 3;
+  margin-left: 30px;
+}
+
+#board ul li{
+  display: inline;  /* 이미지 가로로 배치 */ 
+}
+
+/* 퀵 링크 영역 */
+#links{
+  float: right; /* 오른쪽으로 플로팅 */
+  width: 40%; /* 너비 */
+  height: 100%; /* 높이 */
+}
+
+#links ul{
+  padding: 0; /* 패딩 */
+  overflow: hidden; /* 넘치는 항목을 감춤 */
+}
+
+#links ul li{
+  float: left; /* 가로로 배치 */
+  width: 50%;  /* 세 항목의 영역을 균일하게 지정 */
+  text-align: center;
+  margin: 10px 0;
+}
+
+#links ul li a span{
+  display: block;
+  margin: 0 auto; /* 가운데 배치 */
+  width: 250px;
+  height: 250px;
+  border-radius: 100%;  /* 테두리를 둥글게 지정. border-radius: 150px도 가능 */
+  border: 1px solid #ddd; /* 테두리 스타일 */
+  line-height: 150px; /* 수직으로 중간에 오게 */
+  margin-top: 60px;
+}
+
+#quick-icon1{
+  background-image: url('../images/icon-1.jpg');
+}
+
+#quick-icon2{
+  background-image: url('../images/icon-2.jpg');
+}
+
+#links ul li a p{
+  margin-top: 15px; /* 위쪽 마진 */
+  font-weight: 600; /* 폰트 굵기 */
+  color: #666;    /* 폰트 색상 */
+}
+
+footer{
+  width: 100%;
+  height: 150px; 
+  background-color: whitesmoke;
+  border-top: 2px solid #222; /* 위쪽에 가로선 추가 */
+}
+
+#bottomMenu{
+  width: 100%;
+  height: 20px;
+  position: relative;
+}
+
+#sns{
+  position: absolute;
+  right: 0px;
+}
+
+#sns ul li{
+  border: none; /* 세로선 없이 */
+  pad: 5px
+  ;
+}
+
+#company{
+  clear: left; /* 플로팅 해제, clear: both도 가능 */
+  margin-top: 40px; /* 위쪽 마진 */
+  margin-left: 25px; /* 왼쪽 마진 */
+}
+
+p{
+  font-size: 18px;  /* 폰트 크기 */
+  color: #aaa;  /* 폰트 색상 */
+}
+
+#bottomMenu ul{
+  margin-top: 30px;
+  margin-left: 10px;
+}
+
+#bottomMenu ul li{
+  float: left;  /* 가로로 배치 */
+  padding: 5px 20px;
+  border-right: 1px solid #ddd; /* 항목 오른쪽에 세로선 */
+}
+
+#bottomMenu ul li:last-child{
+  border-right: none; /* 마지막 항목에는 오른쪽 세로선 없음 */
+}
+
+#bottomMenu ul li a, #bottomMenu ul li a:visited{
+  font-size: 15px;  
+  color: #666;;
+}
+
+a{
+  text-decoration: none;  /*  텍스트 링크의 밑줄을 감추는 코드 */ 
+}
+
+h1{
+  margin-top: 20px;
+  margin-left: 55px;
+}
+
+/* <ul> 태그의 불릿 기호를 보이지 않게 만드는 코드 */
+ul{
+  list-style: none;
+}
+
+/* button{ */
+  /* position: absolute; */
+  /* height: 100%; 이미지 높이에 맞추기 */
+  /* top: 0; */
+  /* border: none; 테두리 없이 */
+  /* padding: 20px; */
+  /* background-color: transparent;  투명한 배경 지정 */
+  /* color: black;  */
+  /* font-weight: 700; 화살표를 굵게 지정 */
+  /* font-size: 24px; 화살표 크기 지정  */
+  /* opacity: 0.5;    화살표를 반투명하게 지정 */
+/* } */
+
+#prev{
+  left: 0;  /* 왼쪽으로 붙이기 */
+}
+
+#next{
+  right: 0; /* 오른쪽으로 붙이기 */
+}
+
+#tab1:checked ~ #notice,
+#tab2:checked ~ #board{
+  display: block;
+}
+.TOP5{
+	margin-left: 30px;
+}
+.TOP5 tr{
+    border: 2px solid #ccc;
+}
+.TOP5 tr td{
+    padding: 13px 70px;
+    border: 1px solid #ccc;
+}
+#main table ,tr, td{
+    border-collapse:collapse;
+}
+
+ /* 고정게시판에서 fixed_yn컬럼이 'Y'로 될 시 구분시켜준다. */
+.fixed{
+	font-weight : bolder;
+	background-color : gainsboro;
+}
+
+
+/* 마우스 포인터를 올리면 */
+/* button:hover{ */
+  /* background-color: darkgray; 배경색은 짙은 회색으로 변경 */
+  /* color: white;   흰색 화살표 */
+  /* opacity: 0.6;     불투명도를 높임 */
+  /* cursor: pointer;  포인터 모양으로 바꿈 */
+/* } */
+
+/* button:focus{ */
+  /* outline: 0; 아웃라인 없앰 */
+/* } */

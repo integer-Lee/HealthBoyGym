@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.boot.dao.NoticeDAO">
+<!-- 	<select id = "getNoticeList" parameterType="NoticeVO" resultType="NoticeVO">
+		  SELECT NOTICEID, TITLE, CONTENTS, USERID, HIT, FIXED_YN, REGDATE
+	FROM (
+	      SELECT NOTICEID, TITLE, CONTENTS, USERID, HIT, FIXED_YN, REGDATE
+	      FROM NOTICE
+	      WHERE FIXED_YN = 'Y' AND DELETE_YN = 'N'
+	      
+	      UNION ALL
+	      
+	      SELECT NOTICEID, TITLE, CONTENTS, USERID, HIT, FIXED_YN, REGDATE
+	      FROM NOTICE
+	      WHERE FIXED_YN = 'N' AND DELETE_YN = 'N'
+		)
+		ORDER BY NOTICEID DESC
+	</select> -->
+	
+	
+	<select id = "getNotice" parameterType="NoticeVO" resultType="NoticeVO">
+		select NOTICEID, TITLE, CONTENTS, USERID, REGDATE, HIT, DELETE_YN  
+		from NOTICE 
+		where NOTICEID=#{noticeId} 
+	</select>
+	
+	<update id = "hitUpdate" parameterType="NoticeVO">
+		update NOTICE set hit = hit + 1 where NOTICEID=#{noticeId}
+	</update>
+	
+	<!-- 공지사항 페이징 -->
+	 <select id="getNoticeList" parameterType="NoticeVO" resultType="NoticeVO">
+	  <![CDATA[
+	    SELECT
+	      C.*
+	    FROM
+	      (
+	        SELECT
+	          ROWNUM NROW,
+	          B.*
+	        FROM
+	          (
+	            SELECT
+	              A.*
+	            FROM
+	              NOTICE A 
+	            WHERE DELETE_YN = 'N'
+	            ORDER BY
+	              A.NOTICEID DESC
+	          ) B
+	        WHERE
+	          ROWNUM <= #{endNo}
+	      ) C
+	    WHERE
+	      NROW BETWEEN #{startNo} AND #{endNo}
+	  ]]>
+	</select>
+   
+   <!-- 페이징 -->
+   <!-- 공지사항 글 총 개수 반환 -->
+   <select id="getTotalCount" parameterType="NoticeVO" resultType="int" >
+      select count(*) from notice
+   </select>
+   
+   <!-- 게시글 삽입 -->
+   <insert id = "insertNotice" parameterType="NoticeVO">
+	   insert
+	    INTO NOTICE (
+	        NOTICEID,
+	        TITLE,
+	        CONTENTS,
+	        USERID
+	    ) values (  
+		              SEQ_NOTICE.nextval 
+		              ,#{title} 
+		             ,#{contents}
+		             ,#{userId}  
+		             ) 
+    </insert>
+    
+    <!-- 공지사항 게시글 수정 -->
+    <update id = "updateNotice" parameterType="NoticeVO">
+    	update NOTICE 
+    	set TITLE = #{title}
+    		,CONTENTS = #{contents}
+    	where NOTICEID = #{noticeId}
+    </update>
+    
+    <!-- 공지사항 게시글 삭제 -->
+    <delete id = "deleteNotice" parameterType="NoticeVO">
+    	update NOTICE 
+    	set DELETE_YN = 'Y' 
+    	where NOTICEID = #{noticeId}
+    </delete>
+</mapper>
